@@ -1,5 +1,7 @@
-const Contenedor = require('./Contenedor');
+const Contenedor = require("./Contenedor");
 
-const productos = new Contenedor('productos.txt')
+const productos = new Contenedor("productos.txt");
 
-productos.save({hola: 'soy un obj', chau: 'soy'})
+productos.deleteAll()
+
+
