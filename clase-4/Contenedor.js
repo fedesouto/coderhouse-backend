@@ -9,41 +9,43 @@ class Contenedor {
     //retorna array de objetos
     try {
       const data = await fs.promises.readFile(this.fileName, "utf-8");
-      return data;
+      const array = await JSON.parse(data);
+      return array
     } catch (error) {
       return error;
     }
   }
+
   getNextId(items) {
     const nextId = items[items.length - 1].id + 1
     return nextId;
   }
+
   async save(objeto) {
     //guarda en archivo y retorna el id
     try {
-      const data = await this.getAll();
-      if (!data) {
+      const array = await this.getAll();
+      if (!array.length) {
         objeto.id = 1;
         await fs.promises.writeFile(this.fileName, JSON.stringify([objeto]));
       } else {
-        const array = JSON.parse(data);
         objeto.id = this.getNextId(array)
         await fs.promises.writeFile(
           this.fileName,
           JSON.stringify([...array, objeto])
         );
       }
-      console.log("Se agregó el item con Id: ",objeto.id)
+      console.log("Se agregó el item con Id: ", objeto.id)
     } catch (error) {
       return error;
     }
   }
+
   async getById(id) {
     //retorna objeto
     try {
-      const data = await this.getAll();
-      if (!data) throw new Error("El archivo está vacío");
-      const array = JSON.parse(data);
+      const array = await this.getAll();
+      if (!array.length) throw new Error("El archivo está vacío");
       const objeto = array.filter((item) => item.id == id);
       if (!objeto.length) throw new Error("El ID no existe.");
       else {
@@ -53,12 +55,12 @@ class Contenedor {
       return error;
     }
   }
+
   async deleteById(id) {
     //elimina un objeto por id
     try {
-      const data = await this.getAll();
-      if (!data) throw new Error("El archivo está vacío");
-      const array = JSON.parse(data);
+      const array = await this.getAll();
+      if (!array.length) throw new Error("El archivo está vacío");
       const filteredArray = array.filter((item) => item.id != id);
       if (filteredArray.length == array.length)
         throw new Error("El ID no existe.");
@@ -73,6 +75,7 @@ class Contenedor {
       console.log(error);
     }
   }
+
   async deleteAll() {
     //elimina todos los objetos
     try {
