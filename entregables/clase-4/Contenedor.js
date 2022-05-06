@@ -46,10 +46,10 @@ class Contenedor {
     try {
       const array = await this.getAll();
       if (!array.length) throw new Error("El archivo está vacío");
-      const objeto = array.filter((item) => item.id === id);
-      if (!objeto.length) throw new Error("El ID no existe.");
+      const objeto = array.find((item) => item.id === id);
+      if (!objeto) throw new Error("El ID no existe.");
       else {
-        return objeto[0];
+        return objeto;
       }
     } catch (error) {
       return error;
@@ -97,6 +97,17 @@ class Contenedor {
       if (!filteredArray.length)
         throw new Error("No hay coincidencias para su busqueda.");
       return filteredArray;
+    } catch (error) {
+      return error;
+    }
+  }
+  async getRandom() {
+    //retorna array de objetos
+    try {
+      const data = await fs.promises.readFile(this.fileName, "utf-8");
+      const array = await JSON.parse(data);
+      const randomPos = Math.floor(Math.random() * array.length);
+      return array[randomPos];
     } catch (error) {
       return error;
     }

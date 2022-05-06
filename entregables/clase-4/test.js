@@ -6,8 +6,9 @@ productos.getAll().then((data) => console.log("Todos los productos: ", data));
 
 productos.getById(2).then((data) => console.log("Producto por Id: ", data));
 
-productos.getByTitle("CORYT").then((data) => console.log(data));
-//productos.deleteById(3)
+productos.getRandom().then((data) => console.log(data))
+/* productos.getByTitle("CORYT").then((data) => console.log(data));
+ *///productos.deleteById(3)
 
 //productos.deleteAll()
 
