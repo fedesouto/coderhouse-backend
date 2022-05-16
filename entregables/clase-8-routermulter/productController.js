@@ -11,7 +11,10 @@ class Contenedor {
   }
   getById(id) {
     const item = this.data.find((element) => element.id === id);
-    if (!item) throw new Error("producto no encontrado");
+    if(!item) {
+      const error = new Error('producto no encontrado')
+      throw error;
+    }
     return item;
   }
   addItem(item) {
@@ -19,6 +22,10 @@ class Contenedor {
     this.data.push(item);
   }
   updateItem(id, newData) {
+    if(!newData.title || !newData.price || !newData.thumbnail) {
+      const error = new Error('falta ingresar datos para actualizar')
+      throw error;
+    }
     const item = this.getById(id);
     for (let i in item) {
       if (i !== "id") item[i] = newData[i];
