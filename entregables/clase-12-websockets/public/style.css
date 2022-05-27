@@ -1,0 +1,16 @@
+.messages {
+    max-height: 400px;
+    overflow-x: scroll;
+    margin-top: 2rem;
+    box-shadow: 0 0 10px lightgrey;
+    border-radius: .5rem;
+
+}
+#email {
+    max-width: 400px;
+}
+.wrapper {
+    box-shadow: 0 0 10px lightgrey;
+    padding: 2rem;
+    border-radius: .5rem;
+}

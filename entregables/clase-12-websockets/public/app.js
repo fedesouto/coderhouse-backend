@@ -44,4 +44,5 @@ chat_form.addEventListener("submit", (event) => {
     event.preventDefault();
     const new_message = {user: email.value, message: message.value}
     socket.emit("new_message", new_message)
+    message.value = ""
 })
