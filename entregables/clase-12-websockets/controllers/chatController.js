@@ -17,7 +17,8 @@ class Chat {
   }
 
   getNextId(items) {
-    const nextId = items[items.length - 1].id + 1;
+    const ids = items.map(item => item.id)
+    const nextId = Math.max(...ids) + 1;
     return nextId;
   }
 

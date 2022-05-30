@@ -1,9 +1,10 @@
 .messages {
-    max-height: 400px;
+    height: 400px;
     overflow-x: scroll;
     margin-top: 2rem;
     box-shadow: 0 0 10px lightgrey;
     border-radius: .5rem;
+    padding: 2rem 1rem;
 
 }
 #email {
