@@ -1,0 +1,1 @@
+setTimeout((()=>console.log("primer mensaje")),1e3),setTimeout((()=>console.log("segundo mensaje")),2e3),setTimeout((()=>console.log("tercer mensaje")),3e3);
