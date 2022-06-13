@@ -1,24 +1,52 @@
 (async () => {
-const Knex = require('knex').default
-const knex_sqlite = Knex({
-    client: 'sqlite3',
+  const path = require("path");
+  const Knex = require("knex").default;
+  
+  const knex_sqlite = Knex({
+    client: "sqlite3",
     connection: {
-        filename: `${process.cwd()}/db/ecommerce.sqlite`
+      filename: path.join(process.cwd(), "db", "ecommerce.sqlite"),
     },
-    useNullAsDefault: true
-})
-    try {
-        await knex_sqlite.schema.createTable('chats', (table) => {
-            table.increments('id').primary()
-            table.string('user', 20).notNullable()
-            table.string('message').notNullable()
-            table.timestamp('timestamp')
-        })
-    } catch (error) {
-        console.log(error)
-    }
-    finally {
-        console.log('table created')
-        knex_sqlite.destroy()
-    }
-})()
+    useNullAsDefault: true,
+  });
+  const knex_maria = Knex({
+    client: "mysql2",
+    connection: {
+      host: "127.0.0.1",
+      user: "root",
+      password: "",
+      database: "ecommerce",
+    },
+    useNullAsDefault: true,
+  });
+
+  //chats
+  /*   try {
+    await knex_sqlite.schema.createTable("chats", (table) => {
+      table.increments("id").primary();
+      table.string("user", 20).notNullable();
+      table.string("message").notNullable();
+      table.timestamp("timestamp").defaultTo(Date.now());
+    });
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log("table created");
+    knex_sqlite.destroy();
+  } */
+
+  //productos
+  try {
+    await knex_maria.schema.createTable("products", (table) => {
+      table.increments("id").primary();
+      table.string("title").notNullable();
+      table.float("price").notNullable();
+      table.string("thumbnail").notNullable();
+    });
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log("table created");
+    knex_sqlite.destroy();
+  }
+})();
