@@ -14,8 +14,7 @@ const messageSchema = new norm.schema.Entity(
   { idAttribute: "_id" }
 );
 
-async function normalizedChats() {
-  const data = await chatDao.getAll();
+function normalizedChats(data) {
   const normalized = norm.normalize(data, [messageSchema]);
   return normalized
 }

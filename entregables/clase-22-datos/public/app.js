@@ -13,6 +13,7 @@ const alias = document.querySelector("#alias");
 const avatar = document.querySelector("#avatar");
 const message = document.querySelector("#message");
 const chat = document.querySelector("#chat");
+const chatTitle = document.querySelector('#chat-title')
 
 
 const authorSchema = new normalizr.schema.Entity(
@@ -27,6 +28,13 @@ const messageSchema = new normalizr.schema.Entity(
   },
   { idAttribute: "_id" }
 );
+
+const calculateCompression = (normalized, denormalized) => {
+  const compressed = JSON.stringify(normalized).length
+  const uncompressed = JSON.stringify(denormalized).length
+  const compression = (compressed / uncompressed) * 100
+  return compression.toFixed(2)
+}
 
 
 fetch("/chat.hbs")
@@ -48,12 +56,16 @@ fetch("/chat.hbs")
           products.innerHTML = html;
         });
         socket.on("chat_init", async (data) => {
-          const html = chatTemplate({ messages: normalizr.denormalize(data.result, [messageSchema], data.entities) });
+          const denormalizedData = normalizr.denormalize(data.result, [messageSchema], data.entities).reverse()
+          const html = chatTemplate({ messages:  denormalizedData});
           chat.innerHTML = html;
+          chatTitle.innerHTML = `Compresión: ${calculateCompression(data, denormalizedData)}%`
         });
         socket.on("chat_update", async (data) => {
-          const html = chatTemplate({ messages: data });
+          const denormalizedData = normalizr.denormalize(data.result, [messageSchema], data.entities).reverse()
+          const html = chatTemplate({ messages: denormalizedData });
           chat.innerHTML = html;
+          chatTitle.innerHTML = `Compresión: ${calculateCompression(data, denormalizedData)}%`
         });
 
         product_form.addEventListener("submit", (event) => {

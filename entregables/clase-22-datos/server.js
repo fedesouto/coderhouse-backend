@@ -25,14 +25,14 @@ app.get('/api/productos-test', (req, res, next) => {
 ioServer.on('connection', async (socket) => {
     console.log('new connection');
     socket.emit('init', await productDao.getAll())
-    socket.emit('chat_init',await normalizedChats())
+    socket.emit('chat_init', normalizedChats(await chatDao.getAll()))
     socket.on('new_product', async (new_product) => {
         await productDao.addItem(new_product)
         ioServer.sockets.emit('product_update', await productDao.getAll())
     })
     socket.on('new_message', async (new_message) => {
         await chatDao.addItem(new_message)
-        ioServer.sockets.emit('chat_update', await chatDao.getAll())
+        ioServer.sockets.emit('chat_update', normalizedChats(await chatDao.getAll()))
     })
 })
 
