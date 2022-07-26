@@ -13,7 +13,8 @@ const createRandomProductList = require("./utils/randomProduct");
 const normalizedChats = require("./utils/chatNormalizer");
 const isLoggedIn = require("./middlewares/login");
 const sessionRouter = require("./routes/session.routes");
-const args = require("./utils/commandParser")
+const args = require("./utils/commandParser");
+const getServerInfo = require('./utils/info.controllers');
 
 const app = express();
 const httpServer = new HttpServer(app);
@@ -55,6 +56,8 @@ app.get('/api/productos-test', (req, res, next) => {
     const products = createRandomProductList()
     res.json(products)
 }) 
+
+app.get('/info', getServerInfo)
 
 // websockets
 
