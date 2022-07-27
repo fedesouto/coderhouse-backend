@@ -1,12 +1,14 @@
-require('dotenv').config()
+require("dotenv").config();
 
 const express = require("express");
 const { Server: IOServer } = require("socket.io");
 const { Server: HttpServer } = require("http");
-const passport = require('./utils/passport')
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const MongoStore = require("connect-mongo");
+const {fork} = require('child_process')
+
+const passport = require("./utils/passport");
 const chatDao = require("./daos/chatDao");
 const productDao = require("./daos/productDao");
 const createRandomProductList = require("./utils/randomProduct");
@@ -14,7 +16,7 @@ const normalizedChats = require("./utils/chatNormalizer");
 const isLoggedIn = require("./middlewares/login");
 const sessionRouter = require("./routes/session.routes");
 const args = require("./utils/commandParser");
-const getServerInfo = require('./utils/info.controllers');
+const getServerInfo = require("./utils/info.controllers");
 
 const app = express();
 const httpServer = new HttpServer(app);
@@ -34,30 +36,36 @@ app.use(
       mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
     }),
     cookie: {
-      maxAge: 600000
-    }
+      maxAge: 600000,
+    },
   })
 );
-app.use(passport.initialize())
-app.use(passport.session())
+app.use(passport.initialize());
+app.use(passport.session());
 
-
-
-app.get('/', isLoggedIn)
+app.get("/", isLoggedIn);
 
 app.use(express.static("public"));
 
-app.use('/', sessionRouter)
-
+app.use("/", sessionRouter);
 
 //random products
 
-app.get('/api/productos-test', (req, res, next) => {
-    const products = createRandomProductList()
-    res.json(products)
-}) 
+app.get("/api/productos-test", (req, res, next) => {
+  const products = createRandomProductList();
+  res.json(products);
+});
 
-app.get('/info', getServerInfo)
+app.get("/info", getServerInfo);
+
+app.get("/api/randoms", (req, res, next) => {
+  const cant = Number(req.query.cant) || 100000000
+  const forked = fork('./utils/apirandoms.js')
+  forked.send(cant)
+  forked.on('message', (message) => {
+    res.json(message)
+  })
+});
 
 // websockets
 
