@@ -1,0 +1,11 @@
+Nodemon:
+    Modo fork: nodemon server --port xxxx
+    Modo cluster: nodemon server --port xxxx --mode cluster
+
+Forever:
+    Modo fork: forever start server.js --port xxxx
+    Modo cluster: forever start server.js --mode cluster
+
+PM2:
+    Modo fork: pm2 start server.js --name="ServerX" -- -port xxxx
+    Modo cluster: pm2 start server.js -i max
