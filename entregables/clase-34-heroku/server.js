@@ -121,9 +121,10 @@ if (args.mode === "cluster" && cluster.isPrimary) {
     res.status(404).send("not found");
   });
 
-  httpServer.listen(args.port, () => {
+  const port = process.env.PORT || 8080
+  httpServer.listen(port, () => {
     console.log(
-      `Server listening on port ${args.port} en modo ${args.mode} (PID ${process.pid})`
+      `Server listening on port ${port} en modo ${args.mode} (PID ${process.pid})`
     );
   });
 }
