@@ -2,9 +2,9 @@
   "name": "entregables",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./clase-34-heroku/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./clase-34-heroku/server.js"
   },
   "keywords": [],
   "author": "",
