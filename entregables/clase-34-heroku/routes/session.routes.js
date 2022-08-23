@@ -7,18 +7,18 @@ const { loginErrorHandler, signupErrorHandler } = require("../middlewares/passpo
 const sessionRouter = Router();
 
 sessionRouter.get('/login', (req, res, next) => {
-    res.sendFile(path.join(process.cwd(), 'public', 'pages', 'login.html'))
+    res.sendFile(path.join(process.cwd(),'clase-34-heroku', 'public', 'pages', 'login.html'))
 })
 
 sessionRouter.get('/signup', (req, res, next) => {
-    res.sendFile(path.join(process.cwd(), 'public', 'pages', 'signup.html'))
+    res.sendFile(path.join(process.cwd(),'clase-34-heroku', 'public', 'pages', 'signup.html'))
 })
 
 sessionRouter.get('/failedLogin', (req, res, next) => {
-    res.sendFile(path.join(process.cwd(), 'public', 'pages', 'failedLogin.html'))
+    res.sendFile(path.join(process.cwd(),'clase-34-heroku', 'public', 'pages', 'failedLogin.html'))
 })
 sessionRouter.get('/failedSignup', (req, res, next) => {
-    res.sendFile(path.join(process.cwd(), 'public', 'pages', 'failedSignup.html'))
+    res.sendFile(path.join(process.cwd(),'clase-34-heroku', 'public', 'pages', 'failedSignup.html'))
 })
 sessionRouter.post('/login', passport.authenticate('login'), loginErrorHandler , (req, res, next) => {
     return res.redirect('/')

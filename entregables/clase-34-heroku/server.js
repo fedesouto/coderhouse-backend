@@ -64,7 +64,7 @@ if (args.mode === "cluster" && cluster.isPrimary) {
   app.use(compression());
   app.use(requestLogger);
   app.get("/", isLoggedIn);
-  app.use(express.static("public"));
+  app.use(express.static("clase-34-heroku/public"));
   app.use("/", sessionRouter);
 
   //random products
