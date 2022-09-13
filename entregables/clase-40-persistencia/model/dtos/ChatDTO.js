@@ -1,16 +1,17 @@
-
-function createChatDTO(data) {
-    const dto =
-    {   _id: data._id,
-        author: {
-            avatar: data.author.avatar,
-            alias: data.author.alias
-        },
-        text: data.text,
-        timestamp: data.timestamp
+class Chat {
+    constructor(dto) {
+        this._id = dto._id
+        this.author = dto.author
+        this.text = dto.text
+        this.timestamp = dto.timestamp
     }
-    return dto
+    static toDTO(chat) {
+        return {
+            author: chat.author,
+            text: chat.text,
+            timestamp: chat.timestamp
+        }
+    }
 }
 
-
-module.exports = createChatDTO
+module.exports = Chat;

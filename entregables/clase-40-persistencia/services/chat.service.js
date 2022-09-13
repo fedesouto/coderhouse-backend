@@ -1,22 +1,17 @@
-const { PERSISTENCE } = require("../config")
-const ChatDaoFactory = require("../model/daos/Chat/chatDao")
-const createChatDTO = require("../model/dtos/ChatDTO")
 const normalizedChats = require("../utils/chatNormalizer")
+const ChatRepo = require('../model/Repositories/ChatRepo')
 
 const chatService = {}
+const chatRepo = new ChatRepo()
 
-const chatDao = ChatDaoFactory.createChatDao(PERSISTENCE)
 
 chatService.getAll = async () => {
-    const chats = await chatDao.getAll()
-    console.log(chats[0])
-    const chatDtos = chats.map(chat => createChatDTO(chat))
-    console.log(chatDtos[0])
-    return normalizedChats(chatDtos)
+    const chats = await chatRepo.getAll()
+    return normalizedChats(chats)
 }
 
 chatService.addNew = async (new_message) => {
-    await chatDao.addItem(new_message)
+    await chatRepo.add(new_message)
 } 
 
 module.exports = chatService

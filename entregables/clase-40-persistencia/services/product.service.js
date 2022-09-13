@@ -1,19 +1,16 @@
-const { PERSISTENCE } = require("../config")
-const ProductDaoFactory = require("../model/daos/Product/productDao")
-const ProductDTO = require("../model/dtos/ProductDTO")
 
-const productDao = ProductDaoFactory.createProductDao(PERSISTENCE)
+const ProductRepo = require('../model/Repositories/ProductRepo')
 
 const productService = {}
+const productRepo = new ProductRepo()
 
 productService.getAll = async () => {
-    const products = await productDao.getAll()
-    const productsDtos = products.map(product => new ProductDTO(product))
-    return productsDtos
+    const products = await productRepo.getAll()
+    return products
 }
 
 productService.addNew = async (new_product) => {
-    await productDao.addItem(new_product)
+    await productRepo.add(new_product)
 }
 
 module.exports = productService
