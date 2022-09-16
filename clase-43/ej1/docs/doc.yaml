@@ -1,0 +1,72 @@
+# Product
+
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - id
+        - nombre
+        - precio
+      properties:
+        id:
+          type: number
+          description: The product id
+        nombre:
+          type: string
+          description: The product name
+        precio:
+          type: string
+          description: The product price
+      example:
+        id: 12
+        nombre: PRoducto
+        precio: "123"
+  requestBodies:
+    NewProduct:
+      type: object
+      required:
+        - nombre
+        - precio
+      properties:
+        nombre:
+          type: string
+          description: The product name
+        precio:
+          type: string
+          description: The product price
+      example:
+        nombre: PRoducto
+        precio: "123"
+paths:
+  /products:
+    post:
+      summary: Create new product
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/NewProduct'
+      responses:
+        "200":
+          description: The new product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+      get:
+        summary: Get all products
+        tags:
+          - Products
+        responses:
+          "200":
+            description: Every product
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Product'
