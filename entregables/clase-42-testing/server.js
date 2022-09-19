@@ -82,6 +82,12 @@ if (args.mode === "cluster" && cluster.isPrimary) {
     res.status(404).send("Not found");
   });
 
+  app.use('*', (err, req, res, next) => {
+    if(err){
+      res.send('error')
+    }
+  })
+
   const port = PORT || 8080
   httpServer.listen(port, () => {
     console.log(

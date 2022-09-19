@@ -8,7 +8,6 @@ productCtrl.getAll = async (_req, res, next) => {
     const products = await productService.getAll();
     res.json(products);
   } catch (error) {
-    logger.error(error);
     next(error);
   }
 };
@@ -19,7 +18,6 @@ productCtrl.getById = async (req, res, next) => {
     const product = await productService.getOne(id);
     res.json(product);
   } catch (error) {
-    logger.error(error);
     next(error);
   }
 };
@@ -30,7 +28,6 @@ productCtrl.addOne = async (req, res, next) => {
     await productService.addNew(product);
     res.json({ added: "new product" });
   } catch (error) {
-    logger.error(error);
     next(error);
   }
 };
@@ -42,7 +39,6 @@ productCtrl.update = async (req, res, next) => {
     await productService.update(id, data);
     res.json({ updated: `product id: ${id}` });
   } catch (error) {
-    logger.error(error);
     next(error);
   }
 };
@@ -53,7 +49,6 @@ productCtrl.delete = async (req, res, next) => {
     await productService.delete(id);
     res.json({ deleted: `product id: ${id}` });
   } catch (error) {
-    logger.error(error);
     next(error);
   }
 };

@@ -1,4 +1,4 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 const logger = require('../../utils/logger')
 
 class ContenedorMongoDB {
@@ -34,7 +34,7 @@ class ContenedorMongoDB {
       const data = await this.mongo
         .db(this.db)
         .collection(this.collection)
-        .findOne({ _id: id });
+        .findOne({ _id: ObjectId(id) });
       if(!data) throw new Error(`No se encontró el item con ID ${id}`)
       return data;
     } catch (error) {
@@ -68,7 +68,7 @@ class ContenedorMongoDB {
       return await this.mongo
         .db(this.db)
         .collection(this.collection)
-        .updateOne({ _id: id }, { $set: data });
+        .updateOne({ _id: ObjectId(id) }, { $set: data });
     } catch (error) {
       logger.error(`Error: ${error.message}`)
       throw error;
@@ -79,7 +79,7 @@ class ContenedorMongoDB {
       return await this.mongo
         .db(this.db)
         .collection(this.collection)
-        .deleteOne({ _id: id });
+        .deleteOne({ _id: ObjectId(id) });
     } catch (error) {
       logger.error(`Error: ${error.message}`)
       throw error;
