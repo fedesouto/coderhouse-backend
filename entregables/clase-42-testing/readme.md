@@ -1,3 +1,19 @@
+# Clase 42 - Testing
+
+## Test manual
+    Cliente Axios: node ./tests/client/index
+    Resultado:
+    [![manual test](./tests/results/axios.jpg)]
+
+## Test con Mocha, Chai y Supertest
+    mocha ./tests/api.test.js
+
+    Resultado:
+    [![mocha test](./tests/results/mocha.jpg)]
+
+
+
+
 ## Nodemon:
     Modo fork: nodemon server --port xxxx
     Modo cluster: nodemon server --port xxxx --mode cluster

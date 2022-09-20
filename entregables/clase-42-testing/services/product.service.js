@@ -15,15 +15,15 @@ productService.getOne = async (id) => {
 }
 
 productService.addNew = async (new_product) => {
-    await productRepo.add(new_product)
+    return await productRepo.add(new_product)
 }
 
 productService.update = async (id, data) => {
-    await productRepo.update(id, data)
+    return await productRepo.update(id, data)
 }
 
 productService.delete = async (id) => {
-    await productRepo.delete(id)
+    return await productRepo.delete(id)
 }
 
 module.exports = productService

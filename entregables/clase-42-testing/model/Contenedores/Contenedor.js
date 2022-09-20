@@ -1,5 +1,5 @@
 const { MongoClient, ObjectId } = require("mongodb");
-const logger = require('../../utils/logger')
+const logger = require("../../utils/logger");
 
 class ContenedorMongoDB {
   constructor(connectionString, db, collection) {
@@ -12,7 +12,7 @@ class ContenedorMongoDB {
       await this.mongo.connect();
       console.log("Connected to database");
     } catch (error) {
-      logger.error(`Error: ${error.message}`)
+      logger.error(`Error: ${error.message}`);
       throw error;
     }
   }
@@ -25,7 +25,7 @@ class ContenedorMongoDB {
         .toArray();
       return data;
     } catch (error) {
-      logger.error(`Error: ${error.message}`)
+      logger.error(`Error: ${error.message}`);
       throw error;
     }
   }
@@ -35,10 +35,10 @@ class ContenedorMongoDB {
         .db(this.db)
         .collection(this.collection)
         .findOne({ _id: ObjectId(id) });
-      if(!data) throw new Error(`No se encontró el item con ID ${id}`)
+      if (!data) throw new Error(`No se encontró el item con ID ${id}`);
       return data;
     } catch (error) {
-      logger.error(`Error: ${error.message}`)
+      logger.error(`Error: ${error.message}`);
       throw error;
     }
   }
@@ -50,7 +50,7 @@ class ContenedorMongoDB {
         .findOne({ [key]: value });
       return data;
     } catch (error) {
-      logger.error(`Error: ${error.message}`)
+      logger.error(`Error: ${error.message}`);
       throw error;
     }
   }
@@ -59,7 +59,7 @@ class ContenedorMongoDB {
       await this.mongo.db(this.db).collection(this.collection).insertOne(data);
       return data.id;
     } catch (error) {
-      logger.error(`Error: ${error.message}`)
+      logger.error(`Error: ${error.message}`);
       throw error;
     }
   }
@@ -70,18 +70,20 @@ class ContenedorMongoDB {
         .collection(this.collection)
         .updateOne({ _id: ObjectId(id) }, { $set: data });
     } catch (error) {
-      logger.error(`Error: ${error.message}`)
+      logger.error(`Error: ${error.message}`);
       throw error;
     }
   }
   async deleteItem(id) {
     try {
-      return await this.mongo
+      const result = await this.mongo
         .db(this.db)
         .collection(this.collection)
         .deleteOne({ _id: ObjectId(id) });
+      if (!result.deletedCount) throw new Error("Item does not exist");
+      return result;
     } catch (error) {
-      logger.error(`Error: ${error.message}`)
+      logger.error(`Error: ${error.message}`);
       throw error;
     }
   }

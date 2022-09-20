@@ -49,7 +49,12 @@ productCtrl.delete = async (req, res, next) => {
     await productService.delete(id);
     res.json({ deleted: `product id: ${id}` });
   } catch (error) {
-    next(error);
+    if(error.message === 'Item does not exist'){
+      res.status(404).send(error.message)
+    }
+    else {
+      res.status(500).send(error.message)
+    }
   }
 };
 

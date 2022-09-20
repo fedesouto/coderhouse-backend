@@ -18,7 +18,7 @@ class ProductRepo {
         return products;
       }
     } catch (error) {
-      throw new Error("Product Repository Error", error);
+      throw new Error(error.message);
     }
   }
   async add(product) {
@@ -26,14 +26,14 @@ class ProductRepo {
       const dto = Product.toDTO(product);
       await this.productDao.addItem(dto);
     } catch (error) {
-      throw new Error("Product Repository Error", error);
+      throw new Error(error.message);
     }
   }
   async delete(id) {
     try {
       return await this.productDao.deleteItem(id);
     } catch (error) {
-      throw new Error("Product Repository Error", error);
+      throw new Error(error.message);
     }
   }
   async update(id, data) {
@@ -41,7 +41,7 @@ class ProductRepo {
       const dto = Product.toDTO(data);
       return await this.productDao.updateItem(id, dto);
     } catch (error) {
-      throw new Error("Product Repository Error", error);
+      throw new Error(error.message);
     }
   }
 }
