@@ -3,13 +3,13 @@
 ## Test manual
     Cliente Axios: node ./tests/client/index
     Resultado:
-    ![manual test](./tests/results/axios.jpg)
+    ![manual test](/tests/results/axios.jpg)
 
 ## Test con Mocha, Chai y Supertest
     mocha ./tests/api.test.js
 
     Resultado:
-    ![mocha test](./tests/results/mocha.jpg)
+    ![mocha test](/tests/results/mocha.jpg)
 
 
 
