@@ -3,12 +3,14 @@
 ## Test manual
     Cliente Axios: node ./tests/client/index
     Resultado:
+    
     ![manual test](https://github.com/fedesouto/coderhouse-backend/blob/main/entregables/clase-42-testing/tests/results/axios.jpg?raw=true)
 
 ## Test con Mocha, Chai y Supertest
     mocha ./tests/api.test.js
 
     Resultado:
+
     ![mocha test](https://github.com/fedesouto/coderhouse-backend/blob/main/entregables/clase-42-testing/tests/results/mocha.jpg?raw=true)
 
 
