@@ -1,0 +1,16 @@
+type Recordatorio {
+    id: ID!
+    title: String,
+    description: String,
+    timestamp: String
+}
+input RecordatorioPayload {
+    title: String,
+    description: String
+}
+type Query {
+    getRecordatorios: [Recordatorio]
+}
+type Mutation {
+    createRecordatorio(input: RecordatorioPayload): Recordatorio
+}
