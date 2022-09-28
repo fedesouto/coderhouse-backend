@@ -1,0 +1,30 @@
+type Product {
+    id: ID!,
+    title: String,
+    price: Float,
+    thumbnail: String
+}
+
+type Query {
+    getAllProducts: [Product]
+    getProduct(id: String): Product
+}
+
+input AddProductPayload {
+    title: String,
+    price: Float,
+    thumbnail: String
+}
+
+input UpdateProductPayload {
+    id: String,
+    title: String,
+    price: Float,
+    thumbnail: String
+}
+
+type Mutation {
+    addProduct(product: AddProductPayload): String
+    updateProduct(product: UpdateProductPayload): String
+    deleteProduct(id: String): String
+}

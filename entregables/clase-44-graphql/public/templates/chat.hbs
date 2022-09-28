@@ -1,0 +1,13 @@
+<div class="container messages">
+  {{#if messages}}
+    {{#each messages}}
+      <div class="container d-flex">
+        <img class="img-fluid avatar" src={{author.avatar}}>
+        <p class="text-danger"><b
+            class="text-primary"
+          >{{author.alias}} </b>[{{timestamp}}] :
+          <em class="text-success">{{text}}</em></p>
+      </div>
+    {{/each}}
+  {{/if}}
+</div>
