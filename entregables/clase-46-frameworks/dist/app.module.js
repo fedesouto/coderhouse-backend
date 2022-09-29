@@ -12,6 +12,9 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const products_module_1 = require("./products/products.module");
 const mongoose_1 = require("@nestjs/mongoose");
+const chat_module_1 = require("./chat/chat.module");
+const auth_module_1 = require("./auth/auth.module");
+const users_module_1 = require("./users/users.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -19,6 +22,9 @@ AppModule = __decorate([
         imports: [
             products_module_1.ProductsModule,
             mongoose_1.MongooseModule.forRoot('mongodb+srv://federoot:federoot@cluster0.iiotc.mongodb.net/nest?retryWrites=true&w=majority'),
+            chat_module_1.ChatModule,
+            auth_module_1.AuthModule,
+            users_module_1.UsersModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
