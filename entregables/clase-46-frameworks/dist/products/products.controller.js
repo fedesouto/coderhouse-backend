@@ -22,6 +22,7 @@ let ProductsController = class ProductsController {
         this.productsService = productsService;
     }
     create(createProductDto) {
+        console.log(createProductDto);
         return this.productsService.create(createProductDto);
     }
     findAll() {

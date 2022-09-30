@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
+const path_1 = require("path");
 const authenticated_guard_1 = require("../auth/authenticated.guard");
 const local_auth_guard_1 = require("../auth/local.auth.guard");
 const create_user_dto_1 = require("./dto/create-user.dto");
@@ -22,24 +23,40 @@ let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
     }
+    getLogin(res) {
+        res.sendFile((0, path_1.join)(process.cwd(), 'client', 'pages', 'login.html'));
+    }
+    getSignup(res) {
+        res.sendFile((0, path_1.join)(process.cwd(), 'client', 'pages', 'signup.html'));
+    }
     createUser(createUserDto) {
         return this.usersService.create(createUserDto);
     }
-    login(req) {
-        return {
-            user: req.user
-        };
+    login(res) {
+        res.redirect('/');
     }
     getUserData(req) {
         return req.user;
     }
     logout(req) {
         req.session.destroy();
-        return {
-            logout: 'success'
-        };
+        return req.user.name;
     }
 };
+__decorate([
+    (0, common_1.Get)('/login'),
+    __param(0, (0, common_1.Response)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "getLogin", null);
+__decorate([
+    (0, common_1.Get)('/signup'),
+    __param(0, (0, common_1.Response)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "getSignup", null);
 __decorate([
     (0, common_1.Post)('/signup'),
     __param(0, (0, common_1.Body)()),
@@ -50,7 +67,7 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(local_auth_guard_1.LocalAuthGuard),
     (0, common_1.Post)('/login'),
-    __param(0, (0, common_1.Request)()),
+    __param(0, (0, common_1.Response)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)

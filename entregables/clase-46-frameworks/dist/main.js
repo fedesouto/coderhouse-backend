@@ -8,7 +8,6 @@ const cookieParser = require("cookie-parser");
 const passport = require("passport");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    app.useStaticAssets((0, path_1.join)(__dirname, '..', 'client'));
     app.use(cookieParser());
     app.use(session({
         secret: 'secreto',
@@ -21,6 +20,7 @@ async function bootstrap() {
     }));
     app.use(passport.initialize());
     app.use(passport.session());
+    app.useStaticAssets((0, path_1.join)(__dirname, '..', 'client'));
     await app.listen(3000);
 }
 bootstrap();

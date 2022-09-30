@@ -8,7 +8,6 @@ import * as passport from 'passport';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  app.useStaticAssets(join(__dirname, '..', 'client'))
   app.use(cookieParser())
   app.use(session({
       secret: 'secreto',
@@ -21,6 +20,9 @@ async function bootstrap() {
   }))
   app.use(passport.initialize())
   app.use(passport.session())
+  
+  app.useStaticAssets(join(__dirname, '..', 'client'))
+
   
   await app.listen(3000);
 }

@@ -3,12 +3,10 @@ import { UsersService } from './users.service';
 export declare class UsersController {
     private readonly usersService;
     constructor(usersService: UsersService);
+    getLogin(res: any): void;
+    getSignup(res: any): void;
     createUser(createUserDto: CreateUserDto): Promise<any>;
-    login(req: any): {
-        user: any;
-    };
+    login(res: any): void;
     getUserData(req: any): any;
-    logout(req: any): {
-        logout: string;
-    };
+    logout(req: any): any;
 }
