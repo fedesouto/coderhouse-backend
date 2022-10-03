@@ -15,13 +15,15 @@ const mongoose_1 = require("@nestjs/mongoose");
 const chat_module_1 = require("./chat/chat.module");
 const auth_module_1 = require("./auth/auth.module");
 const users_module_1 = require("./users/users.module");
+const config_1 = require("@nestjs/config");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            config_1.ConfigModule.forRoot(),
             products_module_1.ProductsModule,
-            mongoose_1.MongooseModule.forRoot('mongodb+srv://federoot:federoot@cluster0.iiotc.mongodb.net/nest?retryWrites=true&w=majority'),
+            mongoose_1.MongooseModule.forRoot(process.env.MONGODB_URI),
             chat_module_1.ChatModule,
             auth_module_1.AuthModule,
             users_module_1.UsersModule,
