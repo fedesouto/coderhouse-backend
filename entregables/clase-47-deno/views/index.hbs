@@ -1,7 +1,52 @@
-<h1>Colores</h1>
-<ul>
-{{#each colors}}
-<li>{{name}}</li>
-{{/each}}
-</ul>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body { height: 100vh; padding: 1.5rem; background-color: black; color:
+      whitesmoke; } input { margin-top: 1em;} form { flex;
+      flex-direction: column; width: 300px;} li { font-weight: bold; font-size:
+      1.5rem; }
+    </style>
+    <title>Clase 47</title>
+  </head>
+  <body>
+      <h1>Colores</h1>
+      <form id="form">
+        <label for="color">Ingrese un color en ingles: </label>
+        <div>
+          <input type="text" id="color" required />
+          <input type="submit" value="Agregar color" />
+        </div>
+        <p>Si el color no existe, el texto será blanco.</p>
+      </form>
+      <ul>
+        {{#each colors}}
+          <li style="color: {{name}};">{{name}}</li>
+        {{/each}}
+      </ul>
+<script>
+        const color = document.querySelector('#color');
+        const form = document.querySelector('#form');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            try {
+                const response = await fetch('/colors',
+                {method: 'POST',
+                headers:
+                    {'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json'},
+                body: JSON.stringify({color: color.value})})
+                
+            const text = await response.text()
+            console.log(text)
+            location.reload()
+            }
+            catch(error) {
+                console.error(error)
+            }
+                 })
 
+    </script>
+  </body>
+</html>
